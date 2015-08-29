@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- 
+  Nicholas Saney 
+  
+  Created: August 25, 2015 
+  
+  qsprites.xml 
+  QSprite descriptions 
+  
+-->
+<qsprites folder="sprites">
+  
+  <qsprite code="KettleSprite" width="32" height="32">
+		<spritesheet image="01_Kettle.png" transparent="#e0e0e0" />
+    <shapes>
+      <rectangle code="shape_0" x0="8" y0="16" width="16" height="16"/>
+    </shapes>
+    <animations>
+      <animation code="left_basic">
+        <frame image="00" duration="100"/>
+      </animation>
+      <animation code="left_jump">
+        <frame image="01" duration="100"/>
+      </animation>
+      <animation code="right_basic">
+        <frame image="02" duration="100"/>
+      </animation>
+      <animation code="right_jump">
+        <frame image="03" duration="100"/>
+      </animation>
+    </animations>
+    <states default="right_basic">
+      <state code="left_basic" shape="shape_0" animation="left_basic"/>
+      <state code="left_jump" shape="shape_0" animation="left_jump"/>
+      <state code="right_basic" shape="shape_0" animation="right_basic"/>
+      <state code="right_jump" shape="shape_0" animation="right_jump"/>
+    </states>
+  </qsprite>
+  
+</qsprites>
