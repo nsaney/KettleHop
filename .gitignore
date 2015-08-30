@@ -3,6 +3,11 @@ KettleHop/Deploy_*
 KettleHop/doc
 KettleHop/lib/*.jar
 KettleHop/lib/*/*
+KettleHopApp/bin
+KettleHopApp/gen
+KettleHopApp/libs/*.jar
+KettleHopApp/libs/*/*
+KettleHopApp/local.properties
 
 
 # Windows image file caches
