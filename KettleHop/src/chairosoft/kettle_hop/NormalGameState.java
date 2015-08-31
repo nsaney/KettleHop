@@ -60,7 +60,7 @@ public class NormalGameState extends GameState
     {
         if (this.setTerminalVelocityOnNextFrame)
         {
-            this.app.protagonist.setTerminalVelocity(2.0f, 12.0f); // terminal velocity
+            this.app.protagonist.setTerminalVelocity(2.0f, 3.5f); // terminal velocity
             this.setTerminalVelocityOnNextFrame = false;
         }
         
@@ -114,13 +114,15 @@ public class NormalGameState extends GameState
     {
         // info gathering
         QCompassDirection keypadDirection = this.app.keypad.getDirection();
+        boolean isAgainstLeftWall = this.app.maproom.hasTileCollidingWith(this.app.protagonist.leftBorder);
+        boolean isAgainstRightWall = this.app.maproom.hasTileCollidingWith(this.app.protagonist.rightBorder);
         
         // movement
-        if (keypadDirection.IS_EAST)
+        if (keypadDirection.IS_EAST && !isAgainstRightWall)
         {
             this.app.protagonist.moveRight();
         }
-        else if (keypadDirection.IS_WEST)
+        else if (keypadDirection.IS_WEST && !isAgainstLeftWall)
         {
             this.app.protagonist.moveLeft();
         }
@@ -217,7 +219,9 @@ public class NormalGameState extends GameState
             if (this.show_bounding_box) 
             {
                 ctx.setColor(Color.RED); ctx.fillPolygon(this.app.protagonist.bottomBorder); 
-                ctx.setColor(Color.BLUE); ctx.fillPolygon(this.app.protagonist); 
+                ctx.setColor(Color.YELLOW); ctx.fillPolygon(this.app.protagonist.leftBorder);
+                ctx.setColor(Color.BLUE); ctx.fillPolygon(this.app.protagonist.rightBorder);
+                ctx.setColor(Color.GREEN); ctx.fillPolygon(this.app.protagonist); 
             }
         }
         finally

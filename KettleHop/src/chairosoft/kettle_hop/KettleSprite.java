@@ -18,15 +18,22 @@ import chairosoft.ui.geom.FloatPoint2D;
 public class KettleSprite extends QSprite
 {
     // Instance Fields
-    public final QCollidable bottomBorder = new QCollidable();
+    public final QCollidable bottomBorder = new QCollidable.IntOffset(0, 1);
+    public final QCollidable leftBorder = new QCollidable.IntOffset(-1, 0);
+    public final QCollidable rightBorder = new QCollidable.IntOffset(1, 0);
+    private final QCollidable[] borders = { this.bottomBorder, this.leftBorder, this.rightBorder };
     private KettleState kettleState = KettleState.RIGHT_BASIC;
     
     // Constructor
     public KettleSprite() 
     {
         super("KettleSprite"); 
-        this.setCurrentStateCode(this.currentStateCode);
-        this.recalculateBorders();
+        
+        // force reset of current state code in order to set up borders
+        String initialState = this.currentStateCode;
+        this.currentStateCode = null;
+        this.currentState = null;
+        this.setCurrentStateCode(initialState);
     }
     
     // Static Inner Enum
@@ -108,39 +115,28 @@ public class KettleSprite extends QSprite
         this.setXVelocity(0f); 
     }
     
-    public void recalculateBorders()
+    @Override public void addPoint(int x, int y) 
     {
-        if (this.bottomBorder != null)
-        {
-            this.bottomBorder.reset();
-            for (FloatPoint2D pt : this.points) { this.bottomBorder.addPoint(pt.x, pt.y + 1); } 
-        }
+        super.addPoint(x, y); 
+        if (this.borders == null) { return; }
+        for (QCollidable border : this.borders) { border.addPoint(x, y); } 
     }
-    
-    @Override 
-    public void setCurrentStateCode(String stateCode)
+    @Override public void addPoint(float x, float y) 
     {
-        boolean isSame = this.currentStateCodeEquals(stateCode);
-        super.setCurrentStateCode(stateCode);
-        if (isSame) { return; }
-        this.recalculateBorders();
+        super.addPoint(x, y); 
+        if (this.borders == null) { return; }
+        for (QCollidable border : this.borders) { border.addPoint(x, y); } 
     }
-    
-    @Override
-    public void setXPosition(float px)
+    @Override public void reset() 
     {
-        super.setXPosition(px);
-        if (this.points.isEmpty()) { return; }
-        float py = this.points.get(0).y;
-        this.bottomBorder.putFirstVertexAt(px, py);
+        super.reset(); 
+        if (this.borders == null) { return; }
+        for (QCollidable border : this.borders) { border.reset(); } 
     }
-    
-    @Override
-    public void setYPosition(float py)
+    @Override public void putFirstVertexAt(float x, float y) 
     {
-        super.setYPosition(py);
-        if (this.points.isEmpty()) { return; }
-        float px = this.points.get(0).x;
-        this.bottomBorder.putFirstVertexAt(px, py + 1);
+        super.putFirstVertexAt(x, y); 
+        if (this.borders == null) { return; }
+        for (QCollidable border : this.borders) { border.putFirstVertexAt(x, y); } 
     }
 }
