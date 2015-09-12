@@ -7,7 +7,7 @@
         <activity android:name="KettleHopLauncherActivity"
                   android:label="@string/app_name"
                   android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|screenSize|smallestScreenSize|layoutDirection"
-                  android:screenOrientation="landscape"
+                  REM-android--screenOrientation="landscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
