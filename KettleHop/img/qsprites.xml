@@ -11,6 +11,7 @@
 <qsprites folder="sprites">
   
   <qsprite code="KettleSprite" width="32" height="32">
+    <!-- see http://d10k7sivr61qqr.cloudfront.net/content/royinterface/6/35/549/F6.large.jpg -->
 		<spritesheet image="01_Kettle.png" transparent="#e0e0e0" />
     <shapes>
       <rectangle code="shape_0" x0="8" y0="16" width="16" height="16"/>
@@ -22,18 +23,40 @@
       <animation code="left_jump">
         <frame image="01" duration="100"/>
       </animation>
+      <animation code="left_hop">
+        <frame image="08" duration="007"/>
+        <frame image="09" duration="007"/>
+        <frame image="10" duration="007"/>
+        <frame image="11" duration="007"/>
+        <frame image="12" duration="007"/>
+        <frame image="13" duration="007"/>
+        <frame image="14" duration="007"/>
+        <frame image="15" duration="007"/>
+      </animation>
       <animation code="right_basic">
         <frame image="02" duration="100"/>
       </animation>
       <animation code="right_jump">
         <frame image="03" duration="100"/>
       </animation>
+      <animation code="right_hop">
+        <frame image="16" duration="007"/>
+        <frame image="17" duration="007"/>
+        <frame image="18" duration="007"/>
+        <frame image="19" duration="007"/>
+        <frame image="20" duration="007"/>
+        <frame image="21" duration="007"/>
+        <frame image="22" duration="007"/>
+        <frame image="23" duration="007"/>
+      </animation>
     </animations>
     <states default="right_basic">
       <state code="left_basic" shape="shape_0" animation="left_basic"/>
       <state code="left_jump" shape="shape_0" animation="left_jump"/>
+      <state code="left_hop" shape="shape_0" animation="left_hop"/>
       <state code="right_basic" shape="shape_0" animation="right_basic"/>
       <state code="right_jump" shape="shape_0" animation="right_jump"/>
+      <state code="right_hop" shape="shape_0" animation="right_hop"/>
     </states>
   </qsprite>
   

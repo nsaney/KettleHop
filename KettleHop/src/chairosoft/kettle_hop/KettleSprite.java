@@ -42,8 +42,10 @@ public class KettleSprite extends QSprite
         // Constants
         LEFT_BASIC("left_basic"),
         LEFT_JUMP("left_jump"),
+        LEFT_HOP("left_hop"),
         RIGHT_BASIC("right_basic"),
-        RIGHT_JUMP("right_jump");
+        RIGHT_JUMP("right_jump"),
+        RIGHT_HOP("right_hop");
         
         // Instance Fields
         public final String code;
@@ -60,6 +62,9 @@ public class KettleSprite extends QSprite
         private KettleState afterMovingRight = this;
         public KettleState getAfterMovingRight() { return this.afterMovingRight; }
         
+        private KettleState afterStoppingHorizontalMovement = this;
+        public KettleState getAfterStoppingHorizontalMovement() { return this.afterStoppingHorizontalMovement; }
+        
         // Constructor
         private KettleState(String _code) { this.code = _code; }
         
@@ -67,13 +72,21 @@ public class KettleSprite extends QSprite
         static
         {
             LEFT_BASIC.afterJumping = LEFT_JUMP;
-            LEFT_BASIC.afterMovingRight = RIGHT_BASIC;
+            LEFT_BASIC.afterMovingLeft = LEFT_HOP;
+            LEFT_BASIC.afterMovingRight = RIGHT_HOP;
             LEFT_JUMP.afterLanding = LEFT_BASIC;
             LEFT_JUMP.afterMovingRight = RIGHT_JUMP;
+            LEFT_HOP.afterJumping = LEFT_JUMP;
+            LEFT_HOP.afterMovingRight = RIGHT_HOP;
+            LEFT_HOP.afterStoppingHorizontalMovement = LEFT_BASIC;
             RIGHT_BASIC.afterJumping = RIGHT_JUMP;
-            RIGHT_BASIC.afterMovingLeft = LEFT_BASIC;
+            RIGHT_BASIC.afterMovingRight = RIGHT_HOP;
+            RIGHT_BASIC.afterMovingLeft = LEFT_HOP;
             RIGHT_JUMP.afterLanding = RIGHT_BASIC;
             RIGHT_JUMP.afterMovingLeft = LEFT_JUMP;
+            RIGHT_HOP.afterJumping = RIGHT_JUMP;
+            RIGHT_HOP.afterMovingLeft = LEFT_HOP;
+            RIGHT_HOP.afterStoppingHorizontalMovement = RIGHT_BASIC;
         }
     }
     
@@ -113,6 +126,8 @@ public class KettleSprite extends QSprite
     public void stopHorizontalMovement() 
     {
         this.setXVelocity(0f); 
+        this.kettleState = this.kettleState.getAfterStoppingHorizontalMovement(); 
+        this.setCurrentStateCode(this.kettleState.code); 
     }
     
     @Override public void addPoint(int x, int y) 
